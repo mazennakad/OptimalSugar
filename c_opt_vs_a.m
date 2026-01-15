@@ -26,6 +26,9 @@ nu = nu(:);
 % Storage for c_opt(a)
 c_opt_values = zeros(size(a_values));
 
+% Storage for c_opt(a)
+J_opt_values = zeros(size(a_values));
+
 fprintf('-------------------------------------------------------------\n');
 fprintf('   a (m)             c_opt (mol/m^3)\n');
 fprintf('-------------------------------------------------------------\n');
@@ -49,9 +52,13 @@ for i = 1:length(a_values)
     c_opt = c(idx);
 
     c_opt_values(i) = c_opt;
+    J_opt_values(i) = max(J);
 
     % Print numeric results
     fprintf('  %.2e\t\t%8.2f\n', a, c_opt);
+
+    % figure
+    % plot(c,J)
 
 end
 
@@ -61,6 +68,9 @@ fprintf('-------------------------------------------------------------\n');
 
 figure('Color','w');
 plot(a_values, c_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
+
+figure('Color','w');
+plot(a_values, J_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
 
 grid on; box on;
 xlabel('Phloem radius, a (m)', 'Color', 'k');

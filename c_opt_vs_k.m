@@ -1,4 +1,4 @@
-clear; clc; close all;
+% clear; clc; close all;
 
 % Fixed Parameters
 R   = 8.314;          % J/(mol·K)
@@ -19,7 +19,7 @@ num_points = 400;
 c = linspace(c_min, c_max, num_points)';   % mol/m^3
 
 % Range of k values (same as your original code)
-k_values = linspace(1.0e-15, 1.0e-12, 10);
+k_values = linspace(1.0e-15, 1.0e-12, 100);
 
 % Dynamic viscosity
 nu = Dynamic_Viscosity_T_Sucrose_CW(T, c);
@@ -27,6 +27,9 @@ nu = nu(:);
 
 % Storage for c_opt results
 c_opt_values = zeros(size(k_values));
+
+% Storage for L_opt(L)
+J_opt_values = zeros(size(k_values));
 
 fprintf('-----------------------------------------------\n');
 fprintf('   k-value         c_opt (mol/m^3)\n');
@@ -51,6 +54,7 @@ for i = 1:length(k_values)
     c_opt = c(idx);
 
     c_opt_values(i) = c_opt;
+    J_opt_values(i) = max(J);
 
     fprintf('  %.1e\t\t%8.2f\n', k, c_opt);
 
@@ -63,6 +67,9 @@ fprintf('-----------------------------------------------\n');
 
 figure('Color','w');
 plot(k_values, c_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
+
+figure('Color','w');
+plot(k_values, J_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
 
 grid on; box on;
 xlabel('Permeability, k (m^2)', 'Color', 'k');

@@ -1,5 +1,5 @@
-%%
-clear; clc; close all;
+% %%
+% clear; clc; close all;
 
 % L values (phloem length)
 L_values = logspace(-2, 2, 100);   % 20 values from 0.01 m to 100 m
@@ -26,6 +26,9 @@ nu = nu(:);
 % Storage for c_opt(L)
 c_opt_values = zeros(size(L_values));
 
+% Storage for L_opt(L)
+J_opt_values = zeros(size(L_values));
+
 fprintf('-----------------------------------------------\n');
 fprintf('   L (m)              c_opt (mol/m^3)\n');
 fprintf('-----------------------------------------------\n');
@@ -37,6 +40,7 @@ for i = 1:length(L_values)
 
     % Leaf water potential
     u = m - rho*g*L;
+    % u = -0.1e6;
 
     % Compute J(c)
     N = -m .* k .* L .* a.^2 .* R .* T .* (c.^2) ...
@@ -52,6 +56,7 @@ for i = 1:length(L_values)
     c_opt = c(idx);
 
     c_opt_values(i) = c_opt;
+    J_opt_values(i) = max(J);
 
     fprintf('   %.3f\t\t%10.2f\n', L, c_opt);
 
@@ -62,6 +67,9 @@ fprintf('-----------------------------------------------\n');
 %% Plot c_opt vs L
 figure('Color','w');
 plot(L_values, c_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
+
+figure('Color','w');
+plot(L_values, J_opt_values, 'o-', 'LineWidth', 1.8, 'MarkerSize', 6);
 
 grid on; box on;
 xlabel('Phloem length, L (m)', 'Color', 'k');

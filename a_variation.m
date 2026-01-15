@@ -1,4 +1,4 @@
-clear; clc; close all;
+% clear; clc; close all;
 
 % Parameters
 R = 8.314;          % J/(mol·K)

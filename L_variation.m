@@ -51,6 +51,7 @@ for i = 1:length(L_values)
 
     % leaf water potential
     u = m - rho*g*L;
+    % u = -0.1e6;
 
     % Compute J(c)
     N = -m .* k .* L .* a.^2 .* R .* T .* (c.^2) - m .* u .* a.^2 .* k .* L .* c;
