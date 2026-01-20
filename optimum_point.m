@@ -11,7 +11,7 @@ L = 1.0;            % Phloem (sieze tube) Length
 a = 1.0e-5;         % Phloem (sieze tube) raduis
 u = m - rho*g*L;    % leaf water potential
 k = 1.0e-12;        % permeability 
-
+%TEST
 
 
 % Concentration range
